@@ -49,14 +49,14 @@ def load_model(api_type, api_version, deployment_name):
         model = AzureChatOpenAI(
             openai_api_base=openai.api_base,
             openai_api_version=api_version,
-            deployment_name=deployment_name,
+            deployment_name=deployment_name,  # Asegurarse de que sea "WorkshopIA"
             openai_api_key=openai.api_key,
             openai_api_type=api_type,
             temperature=0.7,
-            max_tokens=1000,
-            model_name="gpt-35-turbo-0125"  # Especificando el modelo exacto según la salida del comando
+            max_tokens=1000
+            # No especificar model_name para evitar conflictos
         )
-        logging.info("Model loaded successfully")
+        logging.info(f"Model loaded successfully with deployment_name: {deployment_name}")
         return model
     except Exception as e:
         logging.error(f"Error loading model: {str(e)}")
@@ -82,6 +82,7 @@ def predict(message, history):
     try:
         # Call Azure OpenAI API
         logging.info(f"Sending request to Azure OpenAI with message: {message[:50]}...")
+        logging.info(f"Using deployment: {model.deployment_name}")
         azure_response = model(history_langchain_format)
         logging.info("Received response from Azure OpenAI")
         return azure_response.content
