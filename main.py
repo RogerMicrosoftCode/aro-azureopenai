@@ -15,7 +15,7 @@ logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(
 model = None
 
 # Grab OpenAI API Base and API Key
-openai.api_base = os.getenv("OPENAI_API_BASE", "https://aopeniaroger.openai.azure.com")
+openai.api_base = os.getenv("OPENAI_API_BASE")
 openai.api_key = os.getenv("OPENAI_API_KEY")
 
 #log details
