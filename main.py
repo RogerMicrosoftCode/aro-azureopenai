@@ -27,7 +27,7 @@ def load_config():
         "title": os.getenv("title", "Azure OpenAI App running in Azure Red Hat OpenShift"),
         "description": os.getenv("description", "Azure OpenAI App running in Azure Red Hat OpenShift"),
         "port": int(os.getenv("port", 8080)),
-        "deployment_name": os.getenv("deployment_name", "WorkshopIA"),
+        "deployment_name": os.getenv("deployment_name", "gpt-35-turbo"),
         "api_type": os.getenv("api_type", "azure"),
         "api_version": os.getenv("api_version", "2023-05-15"),
         "model_name": os.getenv("model_name", "gpt-35-turbo"),
