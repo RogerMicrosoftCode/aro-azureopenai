@@ -1,0 +1,26 @@
+FROM registry.access.redhat.com/ubi8/python-39:latest
+
+# Establecer variables de entorno
+ENV PYTHONUNBUFFERED=1 \
+    PYTHONDONTWRITEBYTECODE=1 \
+    PIP_NO_CACHE_DIR=off \
+    PIP_DISABLE_PIP_VERSION_CHECK=on
+
+# Crear un directorio de trabajo y establecerlo
+WORKDIR /opt/app-root/src
+
+# Copiar requisitos e instalarlos
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+
+# Copiar el código de la aplicación
+COPY *.py .
+
+# Exponer el puerto (ajusta según tu aplicación)
+EXPOSE 8080
+
+# Definir punto de entrada y comando
+CMD ["python3", "main.py"]
+
+# Asegurar que el usuario no privilegiado es dueño de los archivos
+USER 1001
