@@ -138,7 +138,7 @@ kubectl apply -k manifests/overlays/k8s
 # Set your Azure OpenAI credentials
 export OPENAI_API_BASE="https://your-azure-openai-endpoint.openai.azure.com/"
 export OPENAI_API_KEY="your-api-key"
-export NAMESPACE="aro-azureopenai"
+export NAMESPACE="gpt-35-turbo"
 
 # Create the secret
 cat <<EOF | oc apply -n $NAMESPACE -f -
