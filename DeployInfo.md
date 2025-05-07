@@ -32,7 +32,23 @@ Key features:
 
 ## Quickstart Guide
 
-### 1. Clone the Repository
+### 1. Log in to OpenShift
+
+Before starting any deployment, you need to authenticate with your OpenShift cluster:
+
+```bash
+# Login with username/password
+oc login --server=https://api.your-openshift-cluster:6443 -u username -p password
+
+# OR use token authentication
+oc login --server=https://api.your-openshift-cluster:6443 --token=sha256~your-token
+
+# Verify login success
+oc whoami
+oc project
+```
+
+### 2. Clone the Repository
 
 ```bash
 git clone https://github.com/yourusername/aro-azureopenai.git
@@ -42,12 +58,60 @@ cd aro-azureopenai
 ### 2. Build and Push the Container
 
 Option 1: Using the Makefile:
+
+The project includes a powerful Makefile that streamlines the container build and deployment process:
+
+```makefile
+# Makefile structure:
+NAME=aro-azureopenai
+VERSION=v3
+REGISTRY="quay.io/rcarrata"
+TOOL="podman"
+
+build:
+	@${TOOL} build -t localhost/${NAME}:${VERSION} .
+
+tag:
+	@${TOOL} tag localhost/${NAME}:${VERSION} ${REGISTRY}/${NAME}:${VERSION}
+
+push:
+	@${TOOL} push ${REGISTRY}/${NAME}:${VERSION}
+
+run:
+	@${TOOL} run -d -p 8080:8080 ${REGISTRY}/${NAME}:${VERSION}
+```
+
+#### Makefile Variables
+
+- `NAME`: Container image name (default: aro-azureopenai)
+- `VERSION`: Container image version tag (default: v3)
+- `REGISTRY`: Container registry URL (default: quay.io/rcarrata)
+- `TOOL`: Container tool to use (default: podman, can be changed to docker)
+
+#### Makefile Targets
+
+- `build`: Builds the container image locally
+- `tag`: Tags the local image for the remote registry
+- `push`: Pushes the tagged image to the remote registry
+- `run`: Runs the container locally for testing (port 8080)
+- `all`: Default target that runs build, tag, and push sequentially
+
+#### Usage
+
 ```bash
 # Edit the Makefile to set your registry information
-# Then build, tag and push
+# Change NAME, VERSION, REGISTRY, and TOOL as needed
+
+# Build, tag and push all at once
+make
+
+# Or execute individual commands
 make build
 make tag
 make push
+
+# Test locally
+make run
 ```
 
 Option 2: Using OpenShift build:
