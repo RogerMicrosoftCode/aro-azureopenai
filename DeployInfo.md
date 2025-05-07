@@ -120,16 +120,40 @@ oc new-build --binary --name=aro-azureopenai -l app=aro-azureopenai
 oc start-build aro-azureopenai --from-dir=. --follow
 ```
 
-### 3. Deploy to OpenShift
+### 3. Deploy to OpenShift with Custom Namespace
+
+You can deploy the application to a namespace of your choice:
 
 ```bash
-# Create namespace and deploy application
-oc apply -k manifests/overlays/ocp
+# Set your desired namespace name
+export NAMESPACE="my-custom-namespace"
+
+# Create the namespace
+oc create namespace $NAMESPACE
+
+# Update the namespace in the Kustomize files
+sed -i "s/aro-azureopenai/$NAMESPACE/g" manifests/base/namespace.yaml
+sed -i "s/namespace: aro-azureopenai/namespace: $NAMESPACE/g" manifests/overlays/ocp/kustomization.yaml
+sed -i "s/namespace: aro-azureopenai/namespace: $NAMESPACE/g" manifests/overlays/ocp/route.yaml
+
+# Deploy to your custom namespace
+oc apply -k manifests/overlays/ocp -n $NAMESPACE
 ```
 
 For Kubernetes:
 ```bash
-kubectl apply -k manifests/overlays/k8s
+# Set your desired namespace name
+export NAMESPACE="my-custom-namespace"
+
+# Create the namespace
+kubectl create namespace $NAMESPACE
+
+# Update the namespace in the Kustomize files
+sed -i "s/aro-azureopenai/$NAMESPACE/g" manifests/base/namespace.yaml
+sed -i "s/namespace: aro-azureopenai/namespace: $NAMESPACE/g" manifests/overlays/k8s/kustomization.yaml
+
+# Deploy to your custom namespace
+kubectl apply -k manifests/overlays/k8s -n $NAMESPACE
 ```
 
 ### 4. Configure Azure OpenAI Credentials
