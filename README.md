@@ -34,6 +34,7 @@ NOTE: Use ```kubectl apply -k manifests/overlays/k8s``` if you want to deploy it
 export OPENAI_API_BASE="https://MY_FANCY_URL.openai.azure.com/"
 export OPENAI_API_KEY="your-api-key"
 export NAMESPACE="aro-azureopenai"
+export PROJECT="aro-azureopenai"
 ```
 
 * Deploy the secret in the namespace
