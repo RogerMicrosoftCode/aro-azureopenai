@@ -19,7 +19,7 @@ kubectl apply -k manifests/overlays/ocp
 * Deploy the secret in the namespace
 
 ```md
-cat <<EOF | kubectl apply -n $NAMESPACE -f -
+cat <<EOF | kubectl apply -n aro-azureopenai -f -
 apiVersion: v1
 kind: Secret
 metadata:
