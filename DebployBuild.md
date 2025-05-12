@@ -12,7 +12,7 @@ export PROJECT="aro-azureopenai"
 
 ```md
 OC TOKEN CONSOLE AZURE REDHAT OPENSHIFT
-oc project $PROJECT
+oc project aro-azureopenai
 kubectl apply -k manifests/overlays/ocp
 ```
 
