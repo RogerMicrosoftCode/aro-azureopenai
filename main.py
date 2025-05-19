@@ -24,8 +24,8 @@ openai.log = 'debug'
 # Load Config
 def load_config():
     config = {
-        "title": os.getenv("title", "Azure OpenAI App running in Azure Red Hat OpenShift"),
-        "description": os.getenv("description", "Azure OpenAI App running in Azure Red Hat OpenShift"),
+        "title": os.getenv("title", "Azure OpenAI App running on Azure Red Hat OpenShift"),
+        "description": os.getenv("description", "Azure OpenAI App running on Azure Red Hat OpenShift"),
         "port": int(os.getenv("port", 8080)),
         "deployment_name": os.getenv("deployment_name", "gpt-35-turbo"),
         "api_type": os.getenv("api_type", "azure"),
@@ -106,6 +106,8 @@ def run(port, title, description):
             share=False, 
             server_name="0.0.0.0", 
             server_port=port
+            footer=None,          # Esto elimina el pie de página
+            analytics_enabled=False # Esto desactiva las analíticas de Gradio
         )
         logging.info("Gradio interface launched.")
 
@@ -129,7 +131,7 @@ if __name__ == "__main__":
         config = load_config()
 
         # Extract configuration variables
-        title = config.get("title", "Azure OpenAI App running in Azure Red Hat OpenShift")
+        title = config.get("title", "Azure OpenAI App running on Azure Red Hat OpenShift")
         description = config.get("description", "Created and maintained by the Microsoft GBB team and Red Hat")
         port = config.get("port", 8080)
         deployment_name = config.get("deployment_name", "WorkshopIA")
