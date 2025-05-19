@@ -195,7 +195,7 @@ metadata:
   name: azureopenai-config
 data:
   title: "Azure OpenAI App running in Azure Red Hat OpenShift"
-  description: "Microsoft GBB TEAM and Source Code Red Hat Team"
+  description: "Microsoft GBB team and Red Hat source code team"
   port: "8080"
   deployment_name: "gpt-35-turbo"
   api_type: "azure"
