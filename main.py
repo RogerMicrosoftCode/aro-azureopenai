@@ -130,7 +130,7 @@ if __name__ == "__main__":
 
         # Extract configuration variables
         title = config.get("title", "Azure OpenAI App running in Azure Red Hat OpenShift")
-        description = config.get("description", "Created & Maintained by GBB TEAM @ Red Hat and Microsoft")
+        description = config.get("description", "Created and maintained by the Microsoft GBB team and Red Hat")
         port = config.get("port", 8080)
         deployment_name = config.get("deployment_name", "WorkshopIA")
         api_type = config.get("api_type", "azure")

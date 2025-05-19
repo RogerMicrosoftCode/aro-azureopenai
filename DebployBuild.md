@@ -19,6 +19,14 @@ kubectl apply -k manifests/overlays/ocp
 * Deploy the secret in the namespace
 
 ```md
-
-
+cat <<EOF | kubectl apply -n $NAMESPACE -f -
+apiVersion: v1
+kind: Secret
+metadata:
+  name: azure-openai
+type: Opaque
+data:
+  OPENAI_API_BASE: $(echo -n "$OPENAI_API_BASE" | base64)
+  OPENAI_API_KEY: $(echo -n "$OPENAI_API_KEY" | base64)
+EOF
 ```
